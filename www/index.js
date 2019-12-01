@@ -1,3 +1,4 @@
 import * as wasm from "simple-synth";
 
-wasm.greet();
+const synth = new wasm.SimpleSynth();
+console.log("SIMPLE SYNTH >>>>", synth);
