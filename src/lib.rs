@@ -17,6 +17,15 @@ pub fn midi_to_freq(note: u8) -> f32 {
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen]
+extern "C" {
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
+
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn log_f64(a: f64);
+}
+
+#[wasm_bindgen]
 extern {
     fn alert(s: &str);
 }
@@ -43,10 +52,11 @@ impl SimpleSynth {
         let ctx = web_sys::AudioContext::new()?;
         let osc = ctx.create_oscillator()?;
         let gain = ctx.create_gain()?;
+        let time = ctx.current_time();
 
         osc.set_type(OscillatorType::Sine);
-        osc.frequency().set_value(440.0);
-        gain.gain().set_value(0.1);
+        osc.frequency().set_value_at_time(440.0, time).ok();
+        gain.gain().set_value_at_time(0.1, time).ok();
 
         osc.connect_with_audio_node(&gain)?;
         gain.connect_with_audio_node(&ctx.destination())?;
@@ -58,5 +68,14 @@ impl SimpleSynth {
             gain,
             osc
         })
+    }
+
+    pub fn get_ctx_time(&mut self) -> f64 {
+        self.ctx.current_time()
+    }
+
+    pub fn tick(&mut self) {
+        log("ctx current time:");
+        log_f64(self.get_ctx_time());
     }
 }
