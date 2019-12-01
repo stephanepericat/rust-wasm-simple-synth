@@ -1,6 +1,21 @@
 # Simple Synth
 
-A simple web-based synth built with Rust.
+A simple web-based synth built with Rust / WebAssembly / WebAudio API.
+
+## Dependencies
+
+Make sure you have [wasm-pack](https://rustwasm.github.io/wasm-pack/) installed:
+
+```
+curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+```
+
+## Usage
+
+ - Build the wasm binary `wasm-pack build`
+ - Install npm dependencies `cd www && npm install`
+ - Run the demo `npm start`
+ - Go to http://localhost:8080
 
 ## Resources
 
