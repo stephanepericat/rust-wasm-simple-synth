@@ -28,6 +28,12 @@ pub struct SimpleSynth {
     osc: web_sys::OscillatorNode
 }
 
+impl Drop for SimpleSynth {
+    fn drop(&mut self) {
+        let _ = self.ctx.close();
+    }
+}
+
 #[wasm_bindgen]
 impl SimpleSynth {
     #[wasm_bindgen(constructor)]
