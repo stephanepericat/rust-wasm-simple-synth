@@ -80,15 +80,15 @@ impl SimpleSynth {
         self.ctx.current_time()
     }
 
-    pub fn tick(&mut self) {
-        log("ctx current time:");
-        log_f64(self.get_ctx_time());
-    }
-
     pub fn set_note(&mut self, note: u8) -> f32 {
         let time = self.get_ctx_time();
         let freq = midi_to_freq(note);
         self.osc.frequency().set_value_at_time(freq, time).ok();
         freq
+    }
+
+    pub fn set_volume(&mut self, volume: f32) {
+        let time = self.get_ctx_time();
+        self.gain.gain().set_value_at_time(volume, time).ok();
     }
 }

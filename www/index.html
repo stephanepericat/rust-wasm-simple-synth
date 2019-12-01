@@ -4,6 +4,14 @@
     <meta charset="utf-8">
     <title>Rust + WebAssembly simple synth</title>
     <style>
+      .controls label {
+        display: flex;
+      }
+
+      .controls label input {
+        margin: 0 20px;
+      }
+
       .keyboard ul {
         display: flex;
         list-style: none;
@@ -40,7 +48,12 @@
   </head>
   <body>
     <div id="app">
-      <div class="controls"></div>
+      <div class="controls">
+        <label>
+          Volume:
+          <input type="range" min="0.0" max="1.0" step="0.01" id="volume-ctrl" value="0.1" />
+        </label>
+      </div>
       <div class="keyboard">
         <ul class="semitones">
           <li><button data-midi="61">C#</button></li>

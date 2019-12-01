@@ -11,3 +11,10 @@ keys.forEach(key => {
     console.log("FREQUENCY >>>", f)
   })
 })
+
+const volumeCtrl = document.getElementById("volume-ctrl")
+volumeCtrl.addEventListener("change", e => {
+  const v = Number(e.target.value) || 0.1
+  synth.set_volume(v)
+  console.log("VOLUME >>>", v)
+})
