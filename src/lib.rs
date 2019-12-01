@@ -21,6 +21,12 @@ extern "C" {
     #[wasm_bindgen(js_namespace = console)]
     fn log(s: &str);
 
+    #[wasm_bindgen(js_namespace = console)]
+    fn warn(s: &str);
+
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn log_osc_type(a: OscillatorType);
+
     #[wasm_bindgen(js_namespace = console, js_name = log)]
     fn log_f32(a: f32);
 
@@ -84,11 +90,26 @@ impl SimpleSynth {
         let time = self.get_ctx_time();
         let freq = midi_to_freq(note);
         self.osc.frequency().set_value_at_time(freq, time).ok();
+
         freq
     }
 
-    pub fn set_volume(&mut self, volume: f32) {
+    pub fn set_osc_type(&mut self, osc_type: OscillatorType) -> OscillatorType {
+        match osc_type {
+            OscillatorType::Sawtooth => self.osc.set_type(OscillatorType::Sawtooth),
+            OscillatorType::Sine => self.osc.set_type(OscillatorType::Sine),
+            OscillatorType::Square => self.osc.set_type(OscillatorType::Square),
+            OscillatorType::Triangle => self.osc.set_type(OscillatorType::Triangle),
+            _ => warn(&format!("Unsupported oscillator type: {:?}", osc_type))
+        }
+
+        osc_type
+    }
+
+    pub fn set_volume(&mut self, volume: f32) -> f32 {
         let time = self.get_ctx_time();
         self.gain.gain().set_value_at_time(volume, time).ok();
+
+        volume
     }
 }

@@ -18,3 +18,13 @@ volumeCtrl.addEventListener("change", e => {
   synth.set_volume(v)
   console.log("VOLUME >>>", v)
 })
+
+const oscTypeGroup = document.querySelectorAll('input[name="oscType"]')
+
+oscTypeGroup.forEach(option => {
+  option.addEventListener("change", e => {
+    const oscType = e.target.value || "sine"
+    const t = synth.set_osc_type(oscType)
+    console.log("OSC SELECTION >>>", t)
+  })
+})
