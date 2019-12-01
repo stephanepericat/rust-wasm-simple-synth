@@ -14,8 +14,8 @@ keys.forEach(key => {
 
 const volumeCtrl = document.getElementById("volume-ctrl")
 volumeCtrl.addEventListener("change", e => {
-  const v = Number(e.target.value) || 0.1
-  synth.set_volume(v)
+  const volume = Number(e.target.value) || 0.1
+  const v =synth.set_volume(volume)
   console.log("VOLUME >>>", v)
 })
 
