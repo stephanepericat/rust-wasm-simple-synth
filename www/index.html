@@ -3,9 +3,63 @@
   <head>
     <meta charset="utf-8">
     <title>Rust + WebAssembly simple synth</title>
+    <style>
+      .keyboard ul {
+        display: flex;
+        list-style: none;
+      }
+
+      .keyboard button {
+        border: 1px solid #999;
+        border-radius: 4px;
+        height: 40px;
+        width: 40px;
+        margin: 3px;
+        cursor: pointer;
+      }
+
+      .semitones {
+        margin-left: 23px;
+      }
+
+      .semitones .step {
+        margin-left: 46px;
+      }
+
+      .semitones button {
+        background-color: #151515;
+        border-color: #151515;
+        color: #fff;
+      }
+
+      .tones button {
+        background-color: #eee;
+        color: #151515;
+      }
+    </style>
   </head>
   <body>
-    <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+    <div id="app">
+      <div class="controls"></div>
+      <div class="keyboard">
+        <ul class="semitones">
+          <li><button data-midi="61">C#</button></li>
+          <li><button data-midi="63">D#</button></li>
+          <li class="step"><button data-midi="66">F#</button></li>
+          <li><button data-midi="68">G#</button></li>
+          <li><button data-midi="70">A#</button></li>
+        </ul>
+        <ul class="tones">
+          <li><button data-midi="60">C</button></li>
+          <li><button data-midi="62">D</button></li>
+          <li><button data-midi="64">E</button></li>
+          <li><button data-midi="65">F</button></li>
+          <li><button data-midi="67">G</button></li>
+          <li><button data-midi="69">A</button></li>
+          <li><button data-midi="71">B</button></li>
+        </ul>
+      </div>
+    </div>
     <script src="./bootstrap.js"></script>
   </body>
 </html>

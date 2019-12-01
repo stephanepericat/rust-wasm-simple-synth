@@ -22,7 +22,13 @@ extern "C" {
     fn log(s: &str);
 
     #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn log_f32(a: f32);
+
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
     fn log_f64(a: f64);
+
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn log_u8(a: u8);
 }
 
 #[wasm_bindgen]
@@ -70,12 +76,19 @@ impl SimpleSynth {
         })
     }
 
-    pub fn get_ctx_time(&mut self) -> f64 {
+    fn get_ctx_time(&mut self) -> f64 {
         self.ctx.current_time()
     }
 
     pub fn tick(&mut self) {
         log("ctx current time:");
         log_f64(self.get_ctx_time());
+    }
+
+    pub fn set_note(&mut self, note: u8) -> f32 {
+        let time = self.get_ctx_time();
+        let freq = midi_to_freq(note);
+        self.osc.frequency().set_value_at_time(freq, time).ok();
+        freq
     }
 }
